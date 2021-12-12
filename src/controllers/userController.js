@@ -31,9 +31,6 @@ const updateUser = async (req, res) => {
 
 module.exports = {
   createNewuser,
-<<<<<<< HEAD
   createToken,
-=======
   updateUser,
->>>>>>> 8b065df166c9a0796d215f8806df6ee85e830bb3
 };

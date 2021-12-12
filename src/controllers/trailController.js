@@ -20,7 +20,18 @@ const getTrailsList = async (req, res) => {
   return res.status(StatusCodes.OK).json(trailsList);
 };
 
+const getTrailById = async (req, res, next) => {
+  const { id } = req.params;
+  const trail = await services.findTrailById(id);
+
+  if ('error' in trail) {
+    return next(trail.error);
+  }
+  res.status(StatusCodes.OK).json(trail);
+};
+
 module.exports = {
   createNewTrail,
   getTrailsList,
+  getTrailById,
 };

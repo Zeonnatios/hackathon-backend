@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const connection = require('../connection/index');
 
 const createNewTrail = async (trail) => {
@@ -12,7 +13,16 @@ const findTrailsList = async () => {
   return trailsList;
 };
 
+const findById = async (id) => {
+  const validId = ObjectId.isValid(id);
+  if (!validId) return null;
+  const db = await connection();
+  const trail = await db.collection('trails').findOne(ObjectId(id));
+  return trail;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
+  findById,
 };
