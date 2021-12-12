@@ -6,7 +6,10 @@ const OPTIONS = {
     useUnifiedTopology: true,
 };
 
-const { MONGO_DB_URL, DB_NAME } = process.env;
+const MONGO_DB_URL = 'mongodb+srv://superuser:superuser@hackathon.kzbjx.mongodb.net/'
+  + 'hackathon?retryWrites=true&w=majority' || process.env.MONGO_DB_URL;
+
+const DB_NAME = 'hackathon' || process.env.DB_NAME;
 
 let db = null;
 
