@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { StatusCodes } = require('http-status-codes');
 
 const { JWT_SECRET } = process.env;
 
@@ -6,7 +7,7 @@ const validateToken = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'Token not found' });
+    return next({ status: StatusCodes.UNAUTHORIZED, message: 'Token not found' }); 
   }
 
   try {
@@ -14,8 +15,8 @@ const validateToken = (req, res, next) => {
     req.user = payload;  
     return next();
   } catch (err) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
+    return next({ status: StatusCodes.UNAUTHORIZED, message: 'Expired or invalid token' }); 
   }
 };
 
-module.exports = { validateToken };
+module.exports = validateToken;
