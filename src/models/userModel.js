@@ -40,9 +40,20 @@ const updateUserByName = async ({ userName, ...trail }) => {
   );
 };
 
+const verifyName = async (name) => {
+  const db = await connection();
+  const findUser = await db.collection('users').findOne({
+    name,
+  });
+  if (!findUser) return false;
+  
+  return true;
+};
+
 module.exports = {
   createNewUser,
   getUserByEmail,
   updateUser,
   updateUserByName,
+  verifyName,
 };
