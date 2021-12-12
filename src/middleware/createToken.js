@@ -3,14 +3,16 @@ const JWT = require('jsonwebtoken');
 const { getUserByEmail } = require('../models/userModel');
 
 const JWT_CONFIG = {
-  expiresIn: '5h',
+  expiresIn: '12d',
   algorithm: 'HS256',
 };
+
+// espalha isso aqui em MSC
 
 module.exports = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const verifyUser = await getUserByEmail(email, password);
+  const verifyUser = await getUserByEmail({ email, password });
 
   if (!verifyUser) {
     return next({
