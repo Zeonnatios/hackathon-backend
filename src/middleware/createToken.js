@@ -7,6 +7,8 @@ const JWT_CONFIG = {
   algorithm: 'HS256',
 };
 
+// espalha isso aqui em MSC
+
 module.exports = async (req, res, next) => {
   const { email, password } = req.body;
 
