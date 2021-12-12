@@ -5,6 +5,6 @@ const { registerAuthenticator, loginAuthenticator, createToken,
 
 router.post('/users/', [registerAuthenticator, createNewuser]);
 router.post('/login/', [loginAuthenticator, createToken]);
-router.put('/users/:id', jwtValidation, updateUser);
+router.put('/users/:id', [jwtValidation, updateUser]);
 
 module.exports = router;
