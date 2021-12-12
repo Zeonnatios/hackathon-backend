@@ -29,6 +29,4 @@ const registerAuth = (req, _res, next) => {
   return next();
 };
 
-module.exports = {
-  registerAuth,
-};
+module.exports = registerAuth;
