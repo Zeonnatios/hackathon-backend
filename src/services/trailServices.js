@@ -1,3 +1,5 @@
+const { StatusCodes } = require('http-status-codes');
+
 const trailModel = require('../models/trailModel');
 const userModel = require('../models/userModel');
 
@@ -18,8 +20,23 @@ const deleteTrail = async (id) => {
   return deletedTrail;
 };
 
+const findTrailById = async (id) => {
+  const trail = await trailModel.findById(id);
+
+  if (!trail) {
+    return {
+      error: {
+        status: StatusCodes.NOT_FOUND,
+        message: 'Trilha não localizada',
+      },
+    };
+  }
+  return trail;
+};
+
 module.exports = {
   createNewTrail,
   findTrails,
   deleteTrail,
+  findTrailById,
 };

@@ -24,8 +24,17 @@ const deleteTrail = async (id) => {
   return { _id: id };
 };
 
+const findById = async (id) => {
+  const validId = ObjectId.isValid(id);
+  if (!validId) return null;
+  const db = await connection();
+  const trail = await db.collection('trails').findOne(ObjectId(id));
+  return trail;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
   deleteTrail,
+  findById,
 };
