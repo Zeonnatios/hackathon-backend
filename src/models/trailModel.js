@@ -6,6 +6,13 @@ const createNewTrail = async (trail) => {
   return { _id: inserted.insertedId, ...trail };
 };
 
+const findTrailsList = async () => {
+  const db = await connection();
+  const trailsList = await db.collection('trails').find().toArray();
+  return trailsList;
+};
+
 module.exports = {
   createNewTrail,
+  findTrailsList,
 };

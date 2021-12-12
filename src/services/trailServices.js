@@ -6,6 +6,12 @@ const createNewTrail = async (trail) => {
   return data;
 };
 
+const findTrails = async () => {
+  const trailsList = await trailModel.findTrailsList();
+  return trailsList;
+};
+
 module.exports = {
   createNewTrail,
+  findTrails,
 };
