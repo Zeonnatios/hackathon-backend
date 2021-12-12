@@ -21,7 +21,19 @@ const createToken = rescue(async (req, res, next) => {
   return res.status(StatusCodes.CREATED).json(token);
 });
 
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email, password, technologies } = req.body;
+  const data = await services.updateUser({ id, name, email, password, technologies });
+
+  return res.status(StatusCodes.OK).json(data);
+  };
+
 module.exports = {
   createNewuser,
+<<<<<<< HEAD
   createToken,
+=======
+  updateUser,
+>>>>>>> 8b065df166c9a0796d215f8806df6ee85e830bb3
 };

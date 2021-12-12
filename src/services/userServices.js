@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const JWT = require('jsonwebtoken');
-const { getUserByEmail, createNewUser } = require('../models/userModel');
+const { getUserByEmail, createNewUser, updateUser } = require('../models/userModel');
 
 const JWT_CONFIG = {
   expiresIn: '12d',
@@ -46,7 +46,14 @@ const createToken = async (user) => {
   };
 };
 
+const update = async (user) => {
+  const data = await updateUser(user);
+  delete data.password;
+  return data;
+};
+
 module.exports = {
   createNewuser,
   createToken,
+  update,
 };

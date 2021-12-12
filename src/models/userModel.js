@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const connection = require('../connection/index');
 
 const createNewUser = async ({ name, email, password }) => {
@@ -19,7 +20,20 @@ const getUserByEmail = async (user) => {
   return userWithoutPassword;
 };
 
+const updateUser = async ({ id, name, email, password, technologies }) => {
+  if (!ObjectId.isValid(id)) { return null; }
+
+  const db = await connection();
+  await db.collection('users').updateOne(
+    { _id: ObjectId(id) }, 
+    { $set: { name, email, password, technologies } },
+  );
+
+  return { _id: id, name, email, password, technologies };
+};
+
 module.exports = {
   createNewUser,
   getUserByEmail,
+  updateUser,
 };
