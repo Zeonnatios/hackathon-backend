@@ -6,11 +6,11 @@ const createNewUser = async ({ name, email, password }) => {
   return { _id: inserted.insertedId, name, email, password };
 };
 
-const getUserByEmail = async (userEmail, userPassword) => {
+const getUserByEmail = async (user) => {
   const db = await connection();
   const findUser = await db.collection('users').findOne({
-    email: userEmail,
-    password: userPassword,
+    email: user.email,
+    password: user.password,
   });
   if (!findUser) return null;
   
