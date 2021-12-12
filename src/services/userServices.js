@@ -6,6 +6,13 @@ const createNewuser = async (user) => {
   return data;
 };
 
+const updateUser = async (user) => {
+  const data = await userModel.updateUser(user);
+  delete data.password;
+  return data;
+};
+
 module.exports = {
   createNewuser,
+  updateUser,
 };
