@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "servers": [
       {
-        "url": "http://localhost:3001/v1",
+        "url": "http://localhost:3001/",
         "description": "Servidor de desenvolvimento"
       }
     ]
@@ -37,7 +37,7 @@
         },
         "responses": {
           "201": {
-            "description": "OK",
+            "description": "CREATED",
             "content": {
               "application/json": {
                 "schema": {
@@ -75,7 +75,7 @@
         "summary": "Listagem de usuários",
         "description": "Essa rota será responsável por retornar todos os usuários e suas respectivas trilhas.",
         "tags": ["Users"],
-        "response": {
+        "responses": {
           "200": {
             "description": "OK",
             "content": {
@@ -101,12 +101,22 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Usuário pelo Id",
+            "description": "Id do usuário",
             "required": true
           }
         ],
-        "response": {
-          
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/AllUsers"
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -166,7 +176,18 @@
         }
       },
       "User": {
-        
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
       }
     }
   }
