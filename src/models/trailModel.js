@@ -32,9 +32,29 @@ const findById = async (id) => {
   return trail;
 };
 
+const editTrail = async ({ id, newTrail }) => {
+  if (!ObjectId.isValid(id)) { return null; }
+
+  const db = await connection();
+  const update = await db.collection('trails').findOneAndUpdate(
+    {
+      _id: ObjectId(id),
+    },
+    {
+      $set: { ...newTrail },
+    },
+    {
+      returnOriginal: false,
+    },
+  );
+
+  return update.value;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
   deleteTrail,
   findById,
+  editTrail,
 };

@@ -34,9 +34,15 @@ const findTrailById = async (id) => {
   return trail;
 };
 
+const editTrail = async ({ id, newTrail }) => {
+  const edit = await trailModel.editTrail({ id, newTrail });
+  return edit;
+};
+
 module.exports = {
   createNewTrail,
   findTrails,
   deleteTrail,
   findTrailById,
+  editTrail,
 };

@@ -42,13 +42,15 @@ const getTrailById = async (req, res, next) => {
 };
 
 const editTrail = async (req, res, next) => {
-  const { id, ...trailEdited } = req.body;
-  const editTrail = await services.editTrail({ id, trailEdited });
+  const { ...trailEdited } = req.body;
+  const { id } = req.params;
+  console.log(trailEdited);
+  const trailEdit = await services.editTrail({ id, trailEdited });
 
-  if ('error' in editTrail) {
-    return next(editTrail.error);
+  if ('error' in trailEdit) {
+    return next(trailEdit.error);
   }
-  res.status(StatusCodes.OK).json(editTrail);
+  res.status(StatusCodes.OK).json(trailEdit);
 };
 
 module.exports = {
