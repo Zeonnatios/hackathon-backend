@@ -32,11 +32,11 @@ const updateUser = async ({ id, name, email, password, technologies }) => {
   return { _id: id, name, email, password, technologies };
 };
 
-const updateUserByName = async ({ userName, ...trail }) => {
+const updateUserByName = async ({ userName, _id }) => {
   const db = await connection();
   await db.collection('users').updateOne(
     { name: userName }, 
-    { $push: { 'trails.myTrails': { ...trail, userName } } },
+    { $push: { 'trails.myTrails': _id } },
   );
 };
 
