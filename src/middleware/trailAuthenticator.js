@@ -12,7 +12,7 @@ const validator = ([title, description, steps, technologies, userName]) => {
     steps: Joi.array()
       .not().empty()
       .required(),
-    technologies: Joi.array()
+    technologies: Joi.object()
       .not().empty()
       .required(),
     userName: Joi.string()
