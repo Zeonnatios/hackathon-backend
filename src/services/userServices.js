@@ -67,7 +67,7 @@ const getUsers = async (id) => {
     return { error: { status: StatusCodes.BAD_REQUEST, message: 'Id inválido' } }; 
   }
 
-  const findUser = getUserByid(id);
+  const findUser = await getUserByid(id);
   
   if (!findUser) {
     return { error: { status: StatusCodes.NOT_FOUND, message: 'Usuário não encontrado.' } };

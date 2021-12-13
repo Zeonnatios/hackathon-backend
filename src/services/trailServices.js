@@ -34,9 +34,33 @@ const findTrailById = async (id) => {
   return trail;
 };
 
+const editTrail = async ({ id, ...newTrail }) => {
+  const edit = await trailModel.editTrail({ id, newTrail });
+
+  if (edit.acknowledged) {
+    return trailModel.findById(id);
+  }
+};
+
+const findTrailsByTechnology = async (technology) => {
+  const trails = await trailModel.findByTechnology(technology);
+
+  if (!trails) {
+    return {
+      error: {
+        status: StatusCodes.NOT_FOUND,
+        message: 'Não há trilhas com essa tecnologia',
+      },
+    };
+  }
+  return trails;
+};
+
 module.exports = {
   createNewTrail,
   findTrails,
   deleteTrail,
   findTrailById,
+  editTrail,
+  findTrailsByTechnology,
 };

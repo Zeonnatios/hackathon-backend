@@ -4,12 +4,16 @@ const {
   createNewTrail,
   getTrailsList,
   getTrailById,
+  editTrail,
+  getTrailsByTechnology,
 } = require('../controllers/trailController');
 const { jwtValidation, validateTrailEntries, verifyUser } = require('../middleware');
 
-router.post('/trails/', [jwtValidation, validateTrailEntries, createNewTrail]);
 router.get('/home', [jwtValidation, getTrailsList]);
-router.delete('/trails/:id', [jwtValidation, verifyUser, deleteTrail]);
+router.get('/trails', [jwtValidation, getTrailsByTechnology]);
 router.get('/trails/:id', [jwtValidation, getTrailById]);
+router.post('/trails/', [jwtValidation, validateTrailEntries, createNewTrail]);
+router.put('/trails/:id', [jwtValidation, validateTrailEntries, editTrail]);
+router.delete('/trails/:id', [jwtValidation, verifyUser, deleteTrail]);
 
 module.exports = router;

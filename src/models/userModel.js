@@ -52,7 +52,9 @@ const verifyName = async (name) => {
 
 const getAll = async () => {
   const db = await connection();
-  const allUsers = await db.collection('users').find().toArray();
+  const allUsers = await db.collection('users').find(
+    {},
+  ).toArray();
   
   return allUsers;
 };
