@@ -15,6 +15,11 @@ const findTrails = async () => {
   return trailsList;
 };
 
+const deleteTrail = async (id) => {
+  const deletedTrail = await trailModel.deleteTrail(id);
+  return deletedTrail;
+};
+
 const findTrailById = async (id) => {
   const trail = await trailModel.findById(id);
 
@@ -32,5 +37,6 @@ const findTrailById = async (id) => {
 module.exports = {
   createNewTrail,
   findTrails,
+  deleteTrail,
   findTrailById,
 };
