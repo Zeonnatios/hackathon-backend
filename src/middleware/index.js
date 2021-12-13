@@ -4,6 +4,7 @@ const createToken = require('./createToken');
 const jwtValidation = require('./jwtValidation');
 const validateTrailEntries = require('./trailAuthenticator');
 const verifyName = require('./verifyName');
+const verifyUser = require('./verifyUser');
 
 module.exports = {
   loginAuthenticator,
@@ -12,4 +13,5 @@ module.exports = {
   jwtValidation,
   validateTrailEntries,
   verifyName,
+  verifyUser,
 };
