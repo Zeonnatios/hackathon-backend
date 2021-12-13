@@ -43,6 +43,17 @@ const getTrailById = async (req, res, next) => {
   res.status(StatusCodes.OK).json(trail);
 };
 
+<<<<<<< HEAD
+const editTrail = async (req, res, next) => {
+  const { title, description, steps, userName } = req.body;
+  const { id } = req.params;
+  const trailEdit = await services.editTrail({ id, title, description, steps, userName });
+
+  if ('error' in trailEdit) {
+    return next(trailEdit.error);
+  }
+  res.status(StatusCodes.OK).json(trailEdit);
+=======
 const getTrailsByTechnology = async (req, res, next) => {
   const { technology } = req.body;
   const trails = await services.findTrailsByTechnology(technology);
@@ -51,6 +62,7 @@ const getTrailsByTechnology = async (req, res, next) => {
     return next(trails.error);
   }
   res.status(StatusCodes.OK).json(trails);
+>>>>>>> f083ff97cc0978fcfbc771a9983786c32683d1cd
 };
 
 module.exports = {
@@ -58,5 +70,9 @@ module.exports = {
   getTrailsList,
   deleteTrail,
   getTrailById,
+<<<<<<< HEAD
+  editTrail,
+=======
   getTrailsByTechnology,
+>>>>>>> f083ff97cc0978fcfbc771a9983786c32683d1cd
 };

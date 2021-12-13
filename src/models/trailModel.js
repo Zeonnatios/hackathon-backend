@@ -9,7 +9,9 @@ const createNewTrail = async (trail) => {
 
 const findTrailsList = async () => {
   const db = await connection();
-  const trailsList = await db.collection('trails').find().toArray();
+  const trailsList = await db.collection('trails').find(
+    {},
+  ).toArray();
   return trailsList;
 };
 
@@ -32,10 +34,20 @@ const findById = async (id) => {
   return trail;
 };
 
-const findByTechnology = async (technology) => {
+const editTrail = async ({ id, newTrail }) => {
+  if (!ObjectId.isValid(id)) { return null; }
+
   const db = await connection();
-  const trails = await db.collection('trails').findOne({ technologies: technology });
-  return trails;
+  const update = await db.collection('trails').updateOne(
+    {
+      _id: ObjectId(id),
+    },
+    {
+      $set: newTrail,
+    },
+  );
+
+  return update;
 };
 
 module.exports = {
@@ -43,5 +55,5 @@ module.exports = {
   findTrailsList,
   deleteTrail,
   findById,
-  findByTechnology,
+  editTrail,
 };
