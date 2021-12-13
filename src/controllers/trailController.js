@@ -55,7 +55,7 @@ const editTrail = async (req, res, next) => {
 };
 
 const getTrailsByTechnology = async (req, res, next) => {
-  const { technology } = req.body;
+  const { technology } = req.params;
   const trails = await services.findTrailsByTechnology(technology);
 
   if ('error' in trails) {

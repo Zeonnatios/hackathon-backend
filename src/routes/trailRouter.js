@@ -10,7 +10,7 @@ const {
 const { jwtValidation, validateTrailEntries, verifyUser } = require('../middleware');
 
 router.get('/home', [jwtValidation, getTrailsList]);
-router.get('/trails', [jwtValidation, getTrailsByTechnology]);
+router.get('/trails/:technology', [jwtValidation, getTrailsByTechnology]);
 router.get('/trails/:id', [jwtValidation, getTrailById]);
 router.post('/trails/', [jwtValidation, validateTrailEntries, createNewTrail]);
 router.put('/trails/:id', [jwtValidation, validateTrailEntries, editTrail]);
