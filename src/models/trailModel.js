@@ -32,9 +32,16 @@ const findById = async (id) => {
   return trail;
 };
 
+const findByTechnology = async (technology) => {
+  const db = await connection();
+  const trails = await db.collection('trails').findOne({ technologies: technology });
+  return trails;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
   deleteTrail,
   findById,
+  findByTechnology,
 };

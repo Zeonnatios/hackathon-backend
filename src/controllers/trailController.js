@@ -7,10 +7,12 @@ const createNewTrail = rescue(async (req, res) => {
     title,
     description,
     steps,
+    technologies,
     userName,
   } = req.body;
 
-  const createdTrail = await services.createNewTrail({ title, description, steps, userName });
+  const createdTrail = await services.createNewTrail({
+    title, description, steps, technologies, userName });
 
   return res.status(StatusCodes.CREATED).json(createdTrail);
 });
@@ -41,9 +43,20 @@ const getTrailById = async (req, res, next) => {
   res.status(StatusCodes.OK).json(trail);
 };
 
+const getTrailsByTechnology = async (req, res, next) => {
+  const { technology } = req.body;
+  const trails = await services.findTrailsByTechnology(technology);
+
+  if ('error' in trails) {
+    return next(trails.error);
+  }
+  res.status(StatusCodes.OK).json(trails);
+};
+
 module.exports = {
   createNewTrail,
   getTrailsList,
   deleteTrail,
   getTrailById,
+  getTrailsByTechnology,
 };
