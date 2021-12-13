@@ -50,10 +50,17 @@ const editTrail = async ({ id, newTrail }) => {
   return update;
 };
 
+const findByTechnology = async (IdTechnology) => {
+  const db = await connection();
+  const trails = db.collection('trails').find({ technologies: IdTechnology }).toArray();
+  return trails;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
   deleteTrail,
   findById,
   editTrail,
+  findByTechnology,
 };
