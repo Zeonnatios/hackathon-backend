@@ -14,7 +14,7 @@
   "paths": {
     "/users": {
       "post": {
-        "summary": "Cadastro de usuário",
+        "summary": "Cadastro de usuário.",
         "description": "Essa rota será responsável por cadastrar um novo usuário",
         "tags": ["Users"],
         "requestBody": {
@@ -46,9 +46,32 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Esse nome já existe. /OU/ Esse e-mail já existe. Tente outro.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/UserConflict"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - E-mail ou senha inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/UserConflict"
+                }
+              }
+            }
           }
         }
       }
+
     }
   },
   "components": {
@@ -59,18 +82,26 @@
           "user": {
             "type": "object",
             "properties": {
+              "_id": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
               "email": {
                 "type": "string"
-              },
-              "password": {
-                "type": "string"
               }
             }
           },
           "token": {
+            "type": "string"
+          }
+        }
+      },
+      "UserConflict": {
+        "type": "object",
+        "properties": {
+          "message": {
             "type": "string"
           }
         }
