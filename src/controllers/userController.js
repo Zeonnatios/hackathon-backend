@@ -18,7 +18,7 @@ const createToken = rescue(async (req, res, next) => {
 
   if ('error' in token) return next(token.error);
 
-  return res.status(StatusCodes.CREATED).json(token);
+  return res.status(StatusCodes.OK).json(token);
 });
 
 const updateUser = async (req, res) => {
