@@ -38,6 +38,7 @@ const getUsers = rescue(async (req, res) => {
   }
 
   const getUser = await services.getUsers(id);
+  delete getUser.password;
   return res.status(StatusCodes.OK).json(getUser);
 });
 
