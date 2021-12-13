@@ -41,9 +41,20 @@ const getTrailById = async (req, res, next) => {
   res.status(StatusCodes.OK).json(trail);
 };
 
+const editTrail = async (req, res, next) => {
+  const { id, ...trailEdited } = req.body;
+  const editTrail = await services.editTrail({ id, trailEdited });
+
+  if ('error' in editTrail) {
+    return next(editTrail.error);
+  }
+  res.status(StatusCodes.OK).json(editTrail);
+};
+
 module.exports = {
   createNewTrail,
   getTrailsList,
   deleteTrail,
   getTrailById,
+  editTrail,
 };
