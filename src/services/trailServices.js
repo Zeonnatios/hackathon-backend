@@ -6,7 +6,7 @@ const userModel = require('../models/userModel');
 const createNewTrail = async (trail) => {
   const newTrail = { ...trail, likes: 0 };
   const data = await trailModel.createNewTrail(newTrail);
-  await userModel.updateUserByName(trail);
+  await userModel.updateUserByName(data);
   return data;
 };
 
@@ -34,9 +34,12 @@ const findTrailById = async (id) => {
   return trail;
 };
 
-const editTrail = async ({ id, newTrail }) => {
+const editTrail = async ({ id, ...newTrail }) => {
   const edit = await trailModel.editTrail({ id, newTrail });
-  return edit;
+
+  if (edit.acknowledged) {
+    return trailModel.findById(id);
+  }
 };
 
 module.exports = {

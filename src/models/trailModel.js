@@ -9,7 +9,9 @@ const createNewTrail = async (trail) => {
 
 const findTrailsList = async () => {
   const db = await connection();
-  const trailsList = await db.collection('trails').find().toArray();
+  const trailsList = await db.collection('trails').find(
+    {},
+  ).toArray();
   return trailsList;
 };
 
@@ -36,19 +38,16 @@ const editTrail = async ({ id, newTrail }) => {
   if (!ObjectId.isValid(id)) { return null; }
 
   const db = await connection();
-  const update = await db.collection('trails').findOneAndUpdate(
+  const update = await db.collection('trails').updateOne(
     {
       _id: ObjectId(id),
     },
     {
-      $set: { ...newTrail },
-    },
-    {
-      returnOriginal: false,
+      $set: newTrail,
     },
   );
 
-  return update.value;
+  return update;
 };
 
 module.exports = {

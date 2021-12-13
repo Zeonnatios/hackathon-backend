@@ -32,11 +32,11 @@ const updateUser = async ({ id, name, email, password, technologies }) => {
   return { _id: id, name, email, password, technologies };
 };
 
-const updateUserByName = async ({ userName, ...trail }) => {
+const updateUserByName = async ({ userName, _id }) => {
   const db = await connection();
   await db.collection('users').updateOne(
     { name: userName }, 
-    { $push: { 'trails.myTrails': { ...trail, userName } } },
+    { $push: { 'trails.myTrails': _id } },
   );
 };
 
@@ -50,10 +50,30 @@ const verifyName = async (name) => {
   return true;
 };
 
+const getAll = async () => {
+  const db = await connection();
+  const allUsers = await db.collection('users').find(
+    {},
+  ).toArray();
+  
+  return allUsers;
+};
+
+const getUserByid = async (id) => {
+  const db = await connection();
+  const user = await db.collection('users').findOne({
+    _id: ObjectId(id),
+  });
+  
+  return user;
+};
+
 module.exports = {
   createNewUser,
   getUserByEmail,
   updateUser,
   updateUserByName,
   verifyName,
+  getAll,
+  getUserByid,
 };

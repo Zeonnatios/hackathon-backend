@@ -1,6 +1,13 @@
+const { ObjectId } = require('bson');
 const { StatusCodes } = require('http-status-codes');
 const JWT = require('jsonwebtoken');
-const { getUserByEmail, createNewUser, updateUser } = require('../models/userModel');
+const { 
+  getUserByEmail,
+  createNewUser,
+  updateUser,
+  getAll,
+  getUserByid,
+} = require('../models/userModel');
 
 const JWT_CONFIG = {
   expiresIn: '12d',
@@ -52,8 +59,26 @@ const update = async (user) => {
   return data;
 };
 
+const getUsers = async (id) => {
+  if (!id) {
+    return getAll();
+  }
+  if (!ObjectId.isValid(id)) {
+    return { error: { status: StatusCodes.BAD_REQUEST, message: 'Id inválido' } }; 
+  }
+
+  const findUser = await getUserByid(id);
+  
+  if (!findUser) {
+    return { error: { status: StatusCodes.NOT_FOUND, message: 'Usuário não encontrado.' } };
+  }
+
+  return findUser;
+};
+
 module.exports = {
   createNewuser,
   createToken,
   update,
+  getUsers,
 };

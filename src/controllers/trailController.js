@@ -42,10 +42,9 @@ const getTrailById = async (req, res, next) => {
 };
 
 const editTrail = async (req, res, next) => {
-  const { ...trailEdited } = req.body;
+  const { title, description, steps, userName } = req.body;
   const { id } = req.params;
-  console.log(trailEdited);
-  const trailEdit = await services.editTrail({ id, trailEdited });
+  const trailEdit = await services.editTrail({ id, title, description, steps, userName });
 
   if ('error' in trailEdit) {
     return next(trailEdit.error);
