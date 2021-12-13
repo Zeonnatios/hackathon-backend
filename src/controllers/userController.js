@@ -24,7 +24,7 @@ const createToken = rescue(async (req, res, next) => {
 const updateUser = rescue(async (req, res) => {
   const { id } = req.params;
   const { name, email, password, technologies } = req.body;
-  const data = await services.updateUser({ id, name, email, password, technologies });
+  const data = await services.update({ id, name, email, password, technologies });
 
   return res.status(StatusCodes.OK).json(data);
 });
