@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api de manipulação de usuários e trilhas",
+    "description": "Esa api tem como objetivo, gerênciar usuários e manipular trilhas de tecnologias.",
+    "version": "1.0.0",
+    "servers": [
+      {
+        "url": "http://localhost:3001/v1",
+        "description": "Servidor de desenvolvimento"
+      }
+    ]
+  }, 
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Cadastro de usuário",
+        "description": "Essa rota será responsável por cadastrar um novo usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Matheus",
+                    "email": "email@email.com",
+                    "password": "12345678"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CreateUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateUser": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
