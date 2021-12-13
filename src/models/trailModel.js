@@ -34,7 +34,6 @@ const findById = async (id) => {
   return trail;
 };
 
-<<<<<<< HEAD
 const editTrail = async ({ id, newTrail }) => {
   if (!ObjectId.isValid(id)) { return null; }
 
@@ -49,12 +48,6 @@ const editTrail = async ({ id, newTrail }) => {
   );
 
   return update;
-=======
-const findByTechnology = async (technology) => {
-  const db = await connection();
-  const trails = await db.collection('trails').findOne({ technologies: technology });
-  return trails;
->>>>>>> f083ff97cc0978fcfbc771a9983786c32683d1cd
 };
 
 module.exports = {
@@ -62,9 +55,5 @@ module.exports = {
   findTrailsList,
   deleteTrail,
   findById,
-<<<<<<< HEAD
   editTrail,
-=======
-  findByTechnology,
->>>>>>> f083ff97cc0978fcfbc771a9983786c32683d1cd
 };
