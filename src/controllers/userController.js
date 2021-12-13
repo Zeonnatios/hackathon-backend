@@ -21,16 +21,29 @@ const createToken = rescue(async (req, res, next) => {
   return res.status(StatusCodes.CREATED).json(token);
 });
 
-const updateUser = async (req, res) => {
+const updateUser = rescue(async (req, res) => {
   const { id } = req.params;
   const { name, email, password, technologies } = req.body;
   const data = await services.updateUser({ id, name, email, password, technologies });
 
   return res.status(StatusCodes.OK).json(data);
-};
+});
+
+const getUsers = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    const getAll = await services.getUsers();
+    return res.status(StatusCodes.OK).json(getAll);
+  }
+
+  const getUser = await services.getUsers(id);
+  return res.status(StatusCodes.OK).json(getUser);
+});
 
 module.exports = {
   createNewuser,
   createToken,
   updateUser,
+  getUsers,
 };
