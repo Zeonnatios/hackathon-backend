@@ -72,7 +72,7 @@ const getUsers = async (id) => {
   if (!findUser) {
     return { error: { status: StatusCodes.NOT_FOUND, message: 'Usuário não encontrado.' } };
   }
-
+  delete findUser.password;
   return findUser;
 };
 

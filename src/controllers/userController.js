@@ -29,7 +29,7 @@ const updateUser = rescue(async (req, res) => {
   return res.status(StatusCodes.OK).json(data);
 });
 
-const getUsers = rescue(async (req, res) => {
+const getUsers = rescue(async (req, res, next) => {
   const { id } = req.params;
 
   if (!id) {
@@ -38,6 +38,7 @@ const getUsers = rescue(async (req, res) => {
   }
 
   const getUser = await services.getUsers(id);
+  if (getUser.error) return next(getUser.error);
   return res.status(StatusCodes.OK).json(getUser);
 });
 
