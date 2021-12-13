@@ -52,7 +52,8 @@ const editTrail = async ({ id, newTrail }) => {
 
 const findByTechnology = async (IdTechnology) => {
   const db = await connection();
-  const trails = db.collection('trails').find({ technologies: IdTechnology }).toArray();
+  const trails = await db.collection('trails').find({ 'technologies._id': IdTechnology }).toArray();
+  console.log(trails);
   return trails;
 };
 
