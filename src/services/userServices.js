@@ -76,9 +76,21 @@ const getUsers = async (id) => {
   return findUser;
 };
 
+const getTrailsByUserId = async (userId) => {
+  const data = await getUserByid(userId);
+
+  if (!data.trails) {
+    return null;
+  }
+
+  const { trails } = data;
+  return trails;
+};
+
 module.exports = {
   createNewuser,
   createToken,
   update,
   getUsers,
+  getTrailsByUserId,
 };
