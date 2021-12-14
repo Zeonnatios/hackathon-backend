@@ -56,6 +56,23 @@ const findByTechnology = async (IdTechnology) => {
   return trails;
 };
 
+const updateSteps = async ({ id, steps: userSteps }) => {
+  if (!ObjectId.isValid(id)) { return null; }
+  
+  const db = await connection();
+  const update = await db.collection('trails').updateOne(
+    {
+      _id: ObjectId(id),
+    },
+    {
+      $set: {
+        steps: userSteps,
+      },
+    },
+    );
+  return update;
+};
+
 const updateTrailLikes = async (trailId, likedArray) => {
   const db = await connection();
   const { acknowledged } = await db.collection('trails').updateOne({
@@ -73,5 +90,6 @@ module.exports = {
   findById,
   editTrail,
   findByTechnology,
+  updateSteps,
   updateTrailLikes,
 };

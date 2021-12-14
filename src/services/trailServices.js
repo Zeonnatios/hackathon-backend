@@ -56,6 +56,17 @@ const findTrailsByTechnology = async (technology) => {
   return trails;
 };
 
+const createSteps = async ({ id, steps }) => {
+  console.log(id, steps)
+  await trailModel.findById(id);
+
+  await trailModel.updateSteps({ id, steps });
+
+  const trailWithNewStep = await trailModel.findById(id);
+
+  return trailWithNewStep;
+};
+
 const removeLikeFromUser = async (userId, trailId) => {
   const { trails: { likedTrails } } = await userModel.getUserByid(userId);
   const newLikedTrails = likedTrails.filter((item) => item !== trailId);
@@ -110,5 +121,6 @@ module.exports = {
   findTrailById,
   editTrail,
   findTrailsByTechnology,
+  createSteps,
   updateLikes,
 };
