@@ -56,6 +56,16 @@ const findByTechnology = async (IdTechnology) => {
   return trails;
 };
 
+const updateTrailLikes = async (trailId, userId) => {
+  const db = await connection();
+  const { acknowledged } = await db.collection('trails').updateOne({
+    _id: ObjectId(trailId),
+  }, {
+    $addToSet: { likes: userId },
+  });
+  return acknowledged;
+};
+
 module.exports = {
   createNewTrail,
   findTrailsList,
@@ -63,4 +73,5 @@ module.exports = {
   findById,
   editTrail,
   findByTechnology,
+  updateTrailLikes,
 };

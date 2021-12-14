@@ -4,7 +4,7 @@ const trailModel = require('../models/trailModel');
 const userModel = require('../models/userModel');
 
 const createNewTrail = async (trail) => {
-  const newTrail = { ...trail, likes: 0 };
+  const newTrail = { ...trail, likes: [] };
   const data = await trailModel.createNewTrail(newTrail);
   await userModel.updateUserByName(data);
   return data;
@@ -56,6 +56,28 @@ const findTrailsByTechnology = async (technology) => {
   return trails;
 };
 
+const updateLikes = async (trailId, userId) => {
+  const trail = await trailModel.updateTrailLikes(trailId, userId);
+  const user = await userModel.updateUserLikes(userId, trailId);
+
+  if (!trail && !user) {
+    return {
+      error: {
+        status: StatusCodes.CONFLICT,
+        message: 'Não foi possível curtir esta trilha.',
+      },
+    };
+  }
+  const usuario = await userModel.getUserByid(userId);
+  console.log(usuario);
+  const { likes } = await trailModel.findById(trailId);
+  const likesCount = likes.length;
+  return {
+    status: StatusCodes.OK,
+    likesCount,
+  };
+}; 
+
 module.exports = {
   createNewTrail,
   findTrails,
@@ -63,4 +85,5 @@ module.exports = {
   findTrailById,
   editTrail,
   findTrailsByTechnology,
+  updateLikes,
 };

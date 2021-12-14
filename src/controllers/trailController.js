@@ -64,6 +64,16 @@ const getTrailsByTechnology = async (req, res, next) => {
   res.status(StatusCodes.OK).json(trails);
 };
 
+const addNewLike = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  const result = await services.updateLikes(id, userId);
+
+  if ('error' in result) return next(result.error);
+
+  return res.status(result.status).json(result.likesCount);
+};
+
 module.exports = {
   createNewTrail,
   getTrailsList,
@@ -71,4 +81,5 @@ module.exports = {
   getTrailById,
   editTrail,
   getTrailsByTechnology,
+  addNewLike,
 };
