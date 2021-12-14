@@ -60,7 +60,6 @@ const removeLikeFromUser = async (userId, trailId) => {
   const { trails: { likedTrails } } = await userModel.getUserByid(userId);
   const newLikedTrails = likedTrails.filter((item) => item !== trailId);
   await userModel.updateUserLikes(userId, newLikedTrails);
-  console.log(await userModel.getUserByid(userId));
 };
 
 const removeLikeFromTrail = async (trailId, userId, oldLikeArray) => {
