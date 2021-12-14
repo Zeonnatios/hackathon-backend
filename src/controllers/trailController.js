@@ -74,6 +74,15 @@ const createSteps = rescue(async (req, res, next) => {
 
   return res.status(StatusCodes.OK).json(createdStep);
 });
+const addNewLike = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  const result = await services.updateLikes(id, userId);
+
+  if ('error' in result) return next(result.error);
+
+  return res.status(result.status).json(result.likesCount);
+};
 
 module.exports = {
   createNewTrail,
@@ -83,4 +92,5 @@ module.exports = {
   editTrail,
   getTrailsByTechnology,
   createSteps,
+  addNewLike,
 };

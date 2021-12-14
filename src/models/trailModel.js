@@ -70,8 +70,17 @@ const updateSteps = async ({ id, steps: userSteps }) => {
       },
     },
     );
-
   return update;
+};
+
+const updateTrailLikes = async (trailId, likedArray) => {
+  const db = await connection();
+  const { acknowledged } = await db.collection('trails').updateOne({
+    _id: ObjectId(trailId),
+  }, {
+    $set: { likes: [...likedArray] },
+  });
+  return acknowledged;
 };
 
 module.exports = {
@@ -82,4 +91,5 @@ module.exports = {
   editTrail,
   findByTechnology,
   updateSteps,
+  updateTrailLikes,
 };

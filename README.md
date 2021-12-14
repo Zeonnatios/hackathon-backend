@@ -40,6 +40,7 @@ Sobre ...
 - [x] Excluir uma trilha
 - [x] Listar trilhas
 - [x] Listar uma única trilha
+- [x] Listar trilhas por tecnologia
 
 <h2>:arrow_right_hook: Rotas</h2>
 
@@ -91,7 +92,7 @@ Sobre ...
 
 ## GET
 
-# params 
+# params: id do usuário
 
 > /users/61b7a73194f79dd8571bc95f
 
@@ -118,7 +119,7 @@ Sobre ...
 
 ## PUT
 
-# params
+# params: id do usuário
 
 > /users/61b7a73194f79dd8571bc95f
 
@@ -154,6 +155,30 @@ Sobre ...
 }
 
 ```
+
+<h3>/users/trails:id</h3>
+
+```bash
+
+## GET
+
+# params: id do usuário
+
+> /users/61b7a73194f79dd8571bc95f
+
+# Resposta da requisição
+{
+  "myTrails": [
+    "61b7a78a94f79dd8571bc960",
+    "61b7a82494f79dd8571bc961"
+  ],
+  "likedTrails": [
+    "61b7c29115778737e9097485",
+    "61b7e9b4fc15cc7612690240"
+  ]
+}
+```
+
 
 <h3>/login</h3>
 
@@ -261,6 +286,247 @@ Sobre ...
   }
 ]
 
+```
+
+<h3>/home</h3>
+
+```bash
+
+## GET
+
+# Resposta da requisição
+[
+  {
+    "_id": "61b7e5cbb29e004cd1dd740c",
+    "title": "Trilha do Docker",
+    "description": "Aprofundando em Docker",
+    "steps": [
+      {
+        "referencia": "Curso Livre",
+        "avaliacao": 6
+      }
+    ],
+    "technologies": [
+      {
+        "_id": "61b776d8f9519dc843697bd1",
+        "tech": "Docker"
+      }
+    ],
+    "userName": "Xablau",
+    "likes": 0
+  },
+  {
+    "_id": "61b7e600b29e004cd1dd740d",
+    "title": "JavaScript avançado",
+    "description": "Aprofundando em JavaScript",
+    "steps": [
+      {
+        "referencia": "Livro",
+        "avaliacao": 10
+      }
+    ],
+    "technologies": [
+      {
+        "_id": "61b776d8f9519dc843697bd0",
+        "tech": "Javascript"
+      }
+    ],
+    "userName": "Xablau",
+    "likes": 0
+  }
+]
+
+```
+
+<h3>/trails</h3>
+
+```bash
+
+## POST
+
+# Corpo da requisição
+
+{
+	"title": "Aprofundando em testes",
+  "description": "Aplicando testes em javascript",
+  "technologies": [
+  	{
+    	"_id": "61b776d8f9519dc843697bd0",
+      "tech": "Javascript"
+    }
+  ],
+  "steps": [
+  	{
+    	"referencia": "Documentação",
+      "avaliacao": 9
+		}
+	],
+  "userName": "Xablau"
+}
+
+
+# Resposta da requisição
+{
+  "_id": "61b7ef3612b0a3c29f6a37ad",
+  "title": "Aprofundando em testes",
+  "description": "Aplicando testes em javascript",
+  "technologies": [
+    {
+      "_id": "61b776d8f9519dc843697bd0",
+      "tech": "Javascript"
+    }
+  ],
+  "userName": "Xablau",
+  "likes": 0
+}
+
+```
+
+<h3>/trails:id</h3>
+
+```bash
+
+## GET
+
+# params: id da trilha
+
+> /trails/61b7ef3612b0a3c29f6a37ad
+
+# Resposta da requisição
+{
+  "_id": "61b7ef3612b0a3c29f6a37ad",
+  "title": "Aprofundando em testes",
+  "description": "Aplicando testes em javascript",
+  "technologies": [
+    {
+      "_id": "61b776d8f9519dc843697bd0",
+      "tech": "Javascript"
+    }
+  ],
+  "userName": "Xablau",
+  "likes": 0
+}
+
+## PUT
+
+# params: id da trilha
+
+> /trails/61b7ef3612b0a3c29f6a37ad
+
+# Corpo da requisição
+
+{
+	"title": "Aprofundando em testes",
+  "description": "Aplicando testes em javascript",
+  "technologies": [
+  	{
+    	"_id": "61b776d8f9519dc843697bd0",
+      "tech": "Javascript"
+    }
+  ],
+  "steps": [
+  	{
+    	"referencia": "Curso Livre",
+      "avaliacao": 9
+		}
+	],
+  "userName": "Xablau"
+}
+
+# Resposta da requisição
+
+{
+  "_id": "61b7ef3612b0a3c29f6a37ad",
+  "title": "Aprofundando em testes",
+  "description": "Aplicando testes em javascript",
+  "technologies": [
+    {
+      "_id": "61b776d8f9519dc843697bd0",
+      "tech": "Javascript"
+    }
+  ],
+  "userName": "Xablau",
+  "likes": 0,
+  "steps": [
+    {
+      "referencia": "Curso Livre",
+      "avaliacao": 9
+    }
+  ]
+}
+
+```
+
+<h3>/trails:id</h3>
+
+```bash
+
+## GET
+
+# params: id da tecnologia
+
+> /trails/tech/61b776d8f9519dc843697bd0
+
+# Resposta da requisição
+[
+  {
+    "_id": "61b7e600b29e004cd1dd740d",
+    "title": "JavaScript avançado",
+    "description": "Aprofundando em JavaScript",
+    "steps": [
+      {
+        "referencia": "Livro",
+        "avaliacao": 10
+      }
+    ],
+    "technologies": [
+      {
+        "_id": "61b776d8f9519dc843697bd0",
+        "tech": "Javascript"
+      }
+    ],
+    "userName": "Xablau",
+    "likes": 0
+  },
+  {
+    "_id": "61b7e7bdb29e004cd1dd7412",
+    "title": "Primeira trilha do javascript",
+    "description": "Iniciando estudo em JS",
+    "steps": [
+      {
+        "referencia": "Video",
+        "avaliacao": 10
+      }
+    ],
+    "technologies": [
+      {
+        "_id": "61b776d8f9519dc843697bd0",
+        "tech": "Javascript"
+      }
+    ],
+    "userName": "Xablau",
+    "likes": 0
+  },
+  {
+    "_id": "61b7ef3612b0a3c29f6a37ad",
+    "title": "Aprofundando em testes",
+    "description": "Aplicando testes em javascript",
+    "technologies": [
+      {
+        "_id": "61b776d8f9519dc843697bd0",
+        "tech": "Javascript"
+      }
+    ],
+    "userName": "Xablau",
+    "likes": 0,
+    "steps": [
+      {
+        "referencia": "Curso Livre",
+        "avaliacao": 9
+      }
+    ]
+  }
+]
 ```
 
 
