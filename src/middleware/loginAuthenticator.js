@@ -22,7 +22,7 @@ const loginAuth = (req, _res, next) => {
   if (isValid) {
     return next({
       status: StatusCodes.UNAUTHORIZED,
-      message: 'E-mail ou senha inválidos.',
+      message: 'Dados inválidos, tente novamente.',
     });
   }
   return next();
