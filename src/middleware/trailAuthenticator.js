@@ -9,16 +9,13 @@ const validator = ([title, description, steps, technologies, userName]) => {
     description: Joi.string()
       .not().empty()
       .required(),
-    steps: Joi.array()
-      .not().empty()
-      .required(),
     technologies: Joi.array()
       .not().empty()
       .required(),
     userName: Joi.string()
       .not().empty()
       .required(),
-  }).validate({ title, description, steps, technologies, userName });
+  }).validate({ title, description, technologies, userName });
   return error;
 };
 

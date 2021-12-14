@@ -6,13 +6,12 @@ const createNewTrail = rescue(async (req, res) => {
   const {
     title,
     description,
-    steps,
     technologies,
     userName,
   } = req.body;
 
   const createdTrail = await services.createNewTrail({
-    title, description, steps, technologies, userName });
+    title, description, technologies, userName });
 
   return res.status(StatusCodes.CREATED).json(createdTrail);
 });
