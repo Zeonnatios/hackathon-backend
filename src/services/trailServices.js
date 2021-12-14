@@ -56,6 +56,17 @@ const findTrailsByTechnology = async (technology) => {
   return trails;
 };
 
+const createSteps = async ({ id, steps }) => {
+  console.log(id, steps)
+  await trailModel.findById(id);
+
+  await trailModel.updateSteps({ id, steps });
+
+  const trailWithNewStep = await trailModel.findById(id);
+
+  return trailWithNewStep;
+};
+
 module.exports = {
   createNewTrail,
   findTrails,
@@ -63,4 +74,5 @@ module.exports = {
   findTrailById,
   editTrail,
   findTrailsByTechnology,
+  createSteps,
 };

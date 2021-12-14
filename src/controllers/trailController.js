@@ -63,6 +63,18 @@ const getTrailsByTechnology = async (req, res, next) => {
   res.status(StatusCodes.OK).json(trails);
 };
 
+const createSteps = rescue(async (req, res, next) => {
+  const { steps, id } = req.body;
+
+  const createdStep = await services.createSteps({ steps, id });
+
+  if ('error' in createdStep) {
+    return next(createdStep.error);
+  }
+
+  return res.status(StatusCodes.OK).json(createdStep);
+});
+
 module.exports = {
   createNewTrail,
   getTrailsList,
@@ -70,4 +82,5 @@ module.exports = {
   getTrailById,
   editTrail,
   getTrailsByTechnology,
+  createSteps,
 };
