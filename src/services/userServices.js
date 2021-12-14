@@ -1,6 +1,7 @@
 const { ObjectId } = require('bson');
 const { StatusCodes } = require('http-status-codes');
 const JWT = require('jsonwebtoken');
+const { findById } = require('../models/trailModel');
 const { 
   getUserByEmail,
   createNewUser,
@@ -83,8 +84,21 @@ const getTrailsByUserId = async (userId) => {
     return null;
   }
 
-  const { trails } = data;
-  return trails;
+  let foundTrails = data.trails;
+
+  const { myTrails, likedTrails } = foundTrails;
+
+  if (myTrails) {
+    const myTrailsMap = await Promise.all(myTrails.map((trailId) => findById(trailId)));
+    foundTrails = { ...foundTrails, myTrails: myTrailsMap };
+  }
+
+  if (likedTrails) {
+    const likedTrailsMap = await Promise.all(likedTrails.map((trailId) => findById(trailId)));
+    foundTrails = { ...foundTrails, myTrails: likedTrailsMap };
+  }
+
+  return foundTrails;
 };
 
 module.exports = {
