@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { StatusCodes } = require('http-status-codes');
 
-const validator = ([title, description, steps, technologies, userName]) => {
+const validator = ([title, description, technologies, userName]) => {
   const { error } = Joi.object({
     title: Joi.string()
       .not().empty()
@@ -20,8 +20,8 @@ const validator = ([title, description, steps, technologies, userName]) => {
 };
 
 const validateTrailEntries = (req, _res, next) => {
-  const { title, description, steps, technologies, userName } = req.body;
-  const isNotValid = validator([title, description, steps, technologies, userName]);
+  const { title, description, technologies, userName } = req.body;
+  const isNotValid = validator([title, description, technologies, userName]);
 
   if (isNotValid) {
     return next({
