@@ -68,6 +68,19 @@ const getUserByid = async (id) => {
   return user;
 };
 
+const updateUserLikes = async (userId, likedArray) => {
+  const db = await connection();
+  const { acknowledged } = await db.collection('users').updateOne({
+    _id: ObjectId(userId),
+  },
+  {
+    $set: {
+      'trails.likedTrails': likedArray,
+    },
+  });
+  return acknowledged;
+};
+
 module.exports = {
   createNewUser,
   getUserByEmail,
@@ -76,4 +89,5 @@ module.exports = {
   verifyName,
   getAll,
   getUserByid,
+  updateUserLikes,
 };
