@@ -68,14 +68,14 @@ const getUserByid = async (id) => {
   return user;
 };
 
-const updateUserLikes = async (userId, trailId) => {
+const updateUserLikes = async (userId, likedArray) => {
   const db = await connection();
   const { acknowledged } = await db.collection('users').updateOne({
     _id: ObjectId(userId),
   },
   {
-    $addToSet: {
-      'trails.likedTrails': trailId,
+    $set: {
+      'trails.likedTrails': likedArray,
     },
   });
   return acknowledged;

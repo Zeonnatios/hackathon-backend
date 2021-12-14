@@ -57,12 +57,12 @@ const findByTechnology = async (IdTechnology) => {
   return trails;
 };
 
-const updateTrailLikes = async (trailId, userId) => {
+const updateTrailLikes = async (trailId, likedArray) => {
   const db = await connection();
   const { acknowledged } = await db.collection('trails').updateOne({
     _id: ObjectId(trailId),
   }, {
-    $addToSet: { likes: userId },
+    $set: { likes: [...likedArray] },
   });
   return acknowledged;
 };
