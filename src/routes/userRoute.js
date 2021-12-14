@@ -3,7 +3,9 @@ const {
   createNewuser,
   createToken,
   updateUser,
-  getUsers } = require('../controllers/userController');
+  getUsers,
+  getTrailsByUserId,
+} = require('../controllers/userController');
 
 const { 
   registerAuthenticator, 
@@ -13,6 +15,7 @@ const {
 
 router.get('/users', [getUsers]);
 router.get('/users/:id', [getUsers]);
+router.get('/users/trails/:userId', [getTrailsByUserId]);
 router.post('/users/', [registerAuthenticator, verifyName, createNewuser]);
 router.post('/login/', [loginAuthenticator, createToken]);
 router.put('/users/:id', [jwtValidation, updateUser]);
