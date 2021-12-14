@@ -47,7 +47,7 @@ const getTrailsByUserId = rescue(async (req, res) => {
   const trails = await services.getTrailsByUserId(userId);
 
   if (!trails) {
-    res.status(StatusCodes.NOT_FOUND).json({ message: 'Usuário ainda não possui trilhas' });
+    return res.status(StatusCodes.NOT_FOUND).json({ message: 'Usuário ainda não possui trilhas' });
   }
 
   return res.status(StatusCodes.OK).json(trails);
