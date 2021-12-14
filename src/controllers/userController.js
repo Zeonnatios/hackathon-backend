@@ -42,9 +42,21 @@ const getUsers = rescue(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(getUser);
 });
 
+const getTrailsByUserId = rescue(async (req, res) => {
+  const { userId } = req.params;
+  const trails = await services.getTrailsByUserId(userId);
+
+  if (!trails) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: 'Usuário ainda não possui trilhas' });
+  }
+
+  return res.status(StatusCodes.OK).json(trails);
+});
+
 module.exports = {
   createNewuser,
   createToken,
   updateUser,
   getUsers,
+  getTrailsByUserId,
 };
